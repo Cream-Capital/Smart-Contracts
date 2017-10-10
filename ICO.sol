@@ -32,33 +32,11 @@ contract ICO is SafeMath, Ownable {
     }
 
     function rewardFounders() internal {
-        address narcis = 0x1d477Fa6a6aA9aeC8EE0bF30687BaF8141e90358;
-        address manish = 0x1F83d3E966687D09F7D5ed4e481a70E17aB7490f;
-        address brett =  0xCDfC3990B245111126026708Aa216c7a5357a6FC;
-        address ghostface = 0x361f84783486ac8EB4518410Fe8cb2dedeD735Df;
-
-        cream.mint(narcis,    (2000000 * (10**8)));
-        cream.mint(brett,     (2000000 * (10**8)));
-        cream.mint(manish,    (2000000 * (10**8)));
-        cream.mint(ghostface, (500000 * (10**8)));
+        //TODO
     }
 
     function rewardAdvisors() internal {
-        address gary =   0x361f84783486ac8EB4518410Fe8cb2dedeD735Df;
-        address morgan = 0x361f84783486ac8EB4518410Fe8cb2dedeD735Df;
-        address parker = 0x361f84783486ac8EB4518410Fe8cb2dedeD735Df;
-        address amir =   0x361f84783486ac8EB4518410Fe8cb2dedeD735Df;
-
-        address charles = 0x361f84783486ac8EB4518410Fe8cb2dedeD735Df;
-        address mary = 0x361f84783486ac8EB4518410Fe8cb2dedeD735Df;
-
-
-        cream.mint(morgan, (125000 * (10**8)));
-        cream.mint(charles, (62500 * (10**8)));
-        cream.mint(parker, (25000 * (10**8)));
-        cream.mint(mary, (12500 * (10**8)));
-        cream.mint(gary, (12500 * (10**8)));
-        cream.mint(amir, (6250 * (10**8)));
+        //TODO
     }
 
     modifier ifActive {
