@@ -5,7 +5,7 @@ import "./BurnableToken.sol";
 import "./MintableToken.sol";
 import "./Cream.sol";
 
-contract CreamCash is MintableToken, BurnableToken {//, UpgradeableToken(msg.sender){
+contract CreamCash is MintableToken, BurnableToken, UpgradeableToken(msg.sender){
 
     struct Stake{
     uint amount;

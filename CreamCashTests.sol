@@ -19,6 +19,8 @@ contract CreamCashTests {
         cream.mint(0x14723a09acff6d2a60dcdf7aa4aff308fddc160c, cream.supplyCap() - (creamCash.calculateCreamReward(365, 150, 365, amount) + 1));
         creamCash.addStake(amount, daysCommited);
         assert(creamCash.getNumberOfStakes(this) == 1);
+        assert(creamCash.totalCurrentStakedTokens() == amount);
+        assert(creamCash.totalCreamToBeMinted() != 0);
 
     }
 
@@ -102,18 +104,38 @@ contract CreamCashTests {
 
     function testUnlockFeeBeteen(){
         CreamCash creamCash = new CreamCash();
+        uint amountCreamCash = 10000;
+        assert( creamCash.calculateUnlockingFee(365, 20, 182, amountCreamCash) == 151);
+    }
+
+    function BAD_testUnlockFeeBeteen(){
+        CreamCash creamCash = new CreamCash();
+        uint amountCreamCash = 10000;
+        assert( creamCash.calculateUnlockingFee(365, 20, 182, amountCreamCash) != 152);
     }
 
     function testCreamRewardMin(){
         CreamCash creamCash = new CreamCash();
+        uint amountCreamCash = 10000;
+        assert( creamCash.calculateCreamReward(365, 150, 0, amountCreamCash) == 0);
     }
 
     function testCreamRewardMax(){
         CreamCash creamCash = new CreamCash();
+        uint amountCreamCash = 10000;
+        assert( creamCash.calculateCreamReward(365, 150, 365, amountCreamCash) == ((amountCreamCash * 15) / 100) * (10 ** 6));
     }
 
     function testCreamRewardBetween(){
         CreamCash creamCash = new CreamCash();
+        uint amountCreamCash = 10000;
+        assert( creamCash.calculateCreamReward(365, 150, 182, amountCreamCash) == 372948000);
+    }
+
+    function BAD_testCreamRewardBetween(){
+        CreamCash creamCash = new CreamCash();
+        uint amountCreamCash = 10000;
+        assert( creamCash.calculateCreamReward(365, 150, 182, amountCreamCash) != 372948001);
     }
 
 }
