@@ -10,6 +10,6 @@ Both Cream and Cream Cash are **ERC223** tokens which solve a couple of problems
 
 **CDAX** or Cream Digital Asset Exchange is a way of purchasing Cream Cash with Ether. It's also designed to stabilize the price of Cream Cash.
  
-Work In Progress: Cream Cash, CDAX and writting tests for them as well as the ICO contract. 
+Work In Progress: Cream Cash V2(continous generation of Cream based on the holding period), CDAX and writting tests for them. 
 
 Any feedback, code review or suggestions are greatly encouraged and appreciated. 
