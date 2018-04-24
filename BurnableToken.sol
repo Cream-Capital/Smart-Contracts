@@ -1,21 +1,29 @@
-pragma solidity ^0.4.16;
+pragma solidity ^0.4.18;
 
-import "./ERC223Token.sol";
+import "./BasicToken.sol";
 
 
-contract BurnableToken is ERC223Token {
+/**
+ * @title Burnable Token
+ * @dev Token that can be irreversibly burned (destroyed).
+ */
+contract BurnableToken is BasicToken {
 
-    /** How many tokens we burned */
-    event Burned(address burner, uint burnedAmount);
+  event Burn(address indexed burner, uint256 value);
 
-    /**
-     * Burn extra tokens from a balance.
-     *
-     */
-    function burn(uint burnAmount) {
-        address burner = msg.sender;
-        balances[burner] = safeSub(balances[burner], burnAmount);
-        totalSupply = safeSub(totalSupply, burnAmount);
-        Burned(burner, burnAmount);
-    }
+  /**
+   * @dev Burns a specific amount of tokens.
+   * @param _value The amount of token to be burned.
+   */
+  function burn(uint256 _value) public {
+    require(_value <= balances[msg.sender]);
+    // no need to require value <= totalSupply, since that would imply the
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
+
+    address burner = msg.sender;
+    balances[burner] = balances[burner].sub(_value);
+    totalSupply_ = totalSupply_.sub(_value);
+    Burn(burner, _value);
+    Transfer(burner, address(0), _value);
+  }
 }

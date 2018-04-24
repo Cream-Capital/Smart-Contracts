@@ -10,7 +10,7 @@ contract CappedMintableToken is MintableToken{
     }
 
     function mint(address receiver, uint amount) onlyMintAgent public {
-        assert(safeAdd(totalSupply, amount) <= supplyCap);
+        assert(totalSupply_.add(amount) <= supplyCap);
         MintableToken.mint(receiver, amount);
     }
 }
