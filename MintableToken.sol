@@ -1,7 +1,7 @@
 pragma solidity ^0.4.16;
 
 import "./Ownable.sol";
-import "./ERC223Token.sol";
+import "./StandardToken.sol";
 
 
 /**
@@ -11,7 +11,7 @@ import "./ERC223Token.sol";
  * Only mint agents, contracts whitelisted by owner, can mint new tokens.
  *
  */
-contract MintableToken is ERC223Token, Ownable {
+contract MintableToken is StandardToken, Ownable {
 
     /** List of agents that are allowed to create new tokens */
     mapping (address => bool) public mintAgents;
@@ -25,7 +25,7 @@ contract MintableToken is ERC223Token, Ownable {
      * Only callably by a crowdsale contract (mint agent).
      */
     function mint(address receiver, uint amount) onlyMintAgent public {
-        totalSupply = safePlus(totalSupply,amount);
+        totalSupply_ = safePlus(totalSupply_, amount);
         balances[receiver] = safePlus(balances[receiver],amount);
 
         // This will make the mint transaction apper in EtherScan.io

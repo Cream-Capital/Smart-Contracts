@@ -1,6 +1,6 @@
 pragma solidity ^0.4.16;
 
-import "./ERC223Token.sol";
+import "./StandardToken.sol";
 import "./UpgradeAgent.sol";
 
 /**
@@ -8,7 +8,7 @@ import "./UpgradeAgent.sol";
  *
  * First envisioned by Golem and Lunyr projects.
  */
-contract UpgradeableToken is ERC223Token {
+contract UpgradeableToken is StandardToken {
 
     /** Contract / person who can set the upgrade path. This can be the same as team multisig wallet, as what it is with its default value. */
     address public upgradeMaster;
@@ -61,11 +61,11 @@ contract UpgradeableToken is ERC223Token {
         // Validate input value.
         if (value == 0) revert();
 
-        balances[msg.sender] = safeSub(balances[msg.sender], value);
+        balances[msg.sender] = balances[msg.sender].sub(value);
 
         // Take tokens out from circulation
-        totalSupply = safeSub(totalSupply, value);
-        totalUpgraded = safeAdd(totalUpgraded, value);
+        totalSupply_ = totalSupply_.sub(value);
+        totalUpgraded = totalUpgraded.add(value);
 
         // Upgrade agent reissues the tokens
         upgradeAgent.upgradeFrom(msg.sender, value);
@@ -93,7 +93,7 @@ contract UpgradeableToken is ERC223Token {
         // Bad interface
         if(!upgradeAgent.isUpgradeAgent()) revert();
         // Make sure that token supplies match in source and target
-        if (upgradeAgent.originalSupply() != totalSupply) revert();
+        if (upgradeAgent.originalSupply() != totalSupply_) revert();
 
         UpgradeAgentSet(upgradeAgent);
     }
